@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSMA/CD</title>
+  <link rel="icon" href="../Pictures/RouterIcon.png">
+  <link rel="stylesheet" href="../CSS/csma_cd.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"
+    integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body>
+  <script src="../JS/CSMA_CD.js"></script>
+  <!-- Always shows a header, even in smaller screens. -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title"><a class="mdl-navigation__link" href="../index.html">CSMA</a></span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <a class="mdl-navigation__link" href="csma_cd.html">CSMA/CD</a>
+          <a class="mdl-navigation__link" href="csma_ca.html">CSMA/CA</a>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title"><a class="mdl-navigation__link" href="../index.html">CSMA</a></span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="csma_cd.html">CSMA/CD</a>
+        <a class="mdl-navigation__link" href="csma_ca.html">CSMA/CA</a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <!-- Your content goes here -->
+        <p>
+        <h3 class="headline">CSMA/CD</h3>
+
+        <h6 class="headline description">Carrier Sense Multiple Acces with Collision Detection</h6>
+        <br>
+        <br>
+
+
+        <p class="simple-description">The simpliest form of CSMA where a collision is detected and being solved with a
+          backoff. The applet assumes a propagation speed of 2*10<sup>8</sup> m/s, which is the standard propagation of
+          a coaxial cable.
+          <br>
+          <br>
+          4 simple steps to get it running:
+        <p class="Einzug">
+          1. Type in the distance between each node in meters (higher values are recommended e.g. >2000m) <br>
+          2. Type in the frame size in byte (do care about minimum frame size!)<br>
+          3. Type in the transmission speed in Mbit/s <br>
+          4. Hit "Start"
+          <br>
+          <br>
+          E.g. 2500 m &nbsp;&nbsp;&nbsp;&nbsp; 500 byte &nbsp;&nbsp;&nbsp;&nbsp; 100 Mbit/s
+        </p>
+        </p>
+
+        <p class="simple-description">Then click on a computer to send data in a halfduplex network.</p>
+
+        </p>
+        <!-- Numeric Textfield with Floating Label -->
+        <div class="action">
+          <form onsubmit="initialize(distanceField.value, byteField.value, transmissionSpeed.value, this); return false;">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" pattern="[0-9]*(\.[0-9]+)?" id="distanceField">
+              <label class="mdl-textfield__label" for="distanceField">Distance in meter</label>
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" pattern="[0-9]*(\.[0-9]+)?" id="byteField">
+              <label class="mdl-textfield__label" for="byteField">Frame Size in byte</label>
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" pattern="[0-9]*(\.[0-9]+)?" id="transmissionSpeed">
+              <label class="mdl-textfield__label" for="transmissionSpeed">Transmission speed in Mbit/s </label>
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+              <input type="checkbox" name="frame" id="checkbox-1" class="mdl-checkbox__input" unchecked>
+              <span class="mdl-checkbox__label">Deactivate minimum frame size [advanced mode]</span>
+            </label>
+            <!-- Colored raised button -->
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              Start
+            </button>
+          </form>
+        </div>
+
+        <div class="network">
+          <div class="nav">
+            <button class="Button" id="pause" onclick="stopping()">
+              Pause
+            </button>
+            <button class="Button" id="play" onclick="resume()">
+              Resume
+            </button>
+          </div>
+          <button id="left" class="Button" onclick="startNetwork1()"><img src="../Pictures/computer.png" height="160"
+              alt="Submit"></button>
+          <button id="right" class="Button" onclick="startNetwork2()"><img src="../Pictures/computer.png" height="160"
+              alt="Submit"></button>
+          <div class=transition>
+            <div class="leftbox"></div>
+            <div class="rightbox"></div>
+            <div class="leftJam"></div>
+            <div class="rightJam"></div>
+            <div class="rightBlocker"></div>
+            <div class="leftBlocker"></div>
+          </div>
+          <span> <img id="left_danger" src="../Pictures/danger.png" alt="danger" height="20"> </span>
+          <span> <img id="right_danger" src="../Pictures/danger.png" alt="danger" height="20"> </span>
+          <div class=checks>
+            <span id="left_check"> <img src="../Pictures/check.png" alt="check"> Sending complete </span>
+            <span id="right_check"> <img src="../Pictures/check.png" alt="check">Sending complete</span>
+          </div>
+          <div id="backoff">
+            <span id="left_backoff"> Waiting Backoff </span>
+            <span id="right_backoff"> Waiting Backoff </span>
+          </div>
+          <div id="Waiting for Idle Wire">
+            <span id="left_Idle">Waiting for idle wire</span>
+            <span id="right_Idle">Waiting for idle wire</span>
+          </div>
+          <div id="Sensing">
+            <span id="left_Sense">Sensing for collision</span>
+            <span id="right_Sense">Sensing for collision</span>
+          </div>
+          <div id="Jamming"></div>
+            <span id="left_Jam">Jam Procedure</span>
+            <span id="right_Jam">Jam Procedure</span>
+          <div>
+            <div id = "left_WaitingTime"> I must wait <span id="left_RandomValue">0</span> time-slots. (0-<span id="left_max_value_range">0</span>)</div>
+            <div id = "right_WaitingTime"> I must wait <span id="right_RandomValue">0</span> time-slots. (0-<span id="right_max_value_range">0</span>)</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+</body>
+
+</html>

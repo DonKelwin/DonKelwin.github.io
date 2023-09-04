@@ -1,0 +1,55 @@
+
+  #left {
+    float:left;
+    position: relative;
+    z-index: 10;
+  }
+  
+  #right {
+    margin-left: 700px;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .leftbox {
+    background-color: rgba(55, 58, 230);
+    height: 15px;
+    width: 100;
+    margin-top: -15px;
+    opacity: 0;
+  }
+  
+  #backButtons{
+  margin-top: 200px;
+  }
+  
+  #action {
+    position: absolute;
+  }
+  
+  #rightButtonBack{
+    margin-left: 800px;
+  }
+  
+  .rightBlocker {
+    background-color: rgb(0, 0, 0);
+    height: 15px;
+    width: 800px;
+    opacity: 1;
+    margin-top: -75px;
+    margin-left: 860px;
+    z-index: 5;
+    position: relative;
+  }
+  
+  .rightbox {
+    background-color: rgb(240, 110, 110);
+    height: 15px;
+    width: 100;
+    float: right;
+    opacity: 0;
+    margin-top: -30px;
+    margin-right: 500px;
+  }
+  
+  

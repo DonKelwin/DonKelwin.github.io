@@ -1,0 +1,194 @@
+   .action {
+      padding: 20px 100px;
+      display: inline-block;
+    }
+
+    .network {
+      padding: 200px 100px;
+      opacity: 0;
+      position: absolute;
+      width: 800px;
+    }
+
+    .headline {
+      padding: 10px 50px;
+    }
+
+    .simple-description {
+      padding: 00px 100px;
+    }
+
+    .Button {
+      cursor: pointer;
+    }
+
+    .Einzug {
+      padding: 0px 130px;
+    }
+
+
+    .transition {
+      margin-top: -90px;
+    }
+
+
+    .leftbox {
+      background-color: rgba(55, 58, 230);
+      height: 15px;
+      width: 100;
+      opacity: 0;
+    }
+
+    .rightbox {
+      background-color: rgb(240, 110, 110);
+      height: 15px;
+      width: 100;
+      float: right;
+      opacity: 0;
+      margin-top: -15px;
+    }
+
+    .leftJam {
+      background-color: rgb(0, 0, 0);
+      height: 15px;
+      width: 10px;
+      opacity: 0;
+      margin-top: -15px;
+      margin-left: 172px;
+
+    }
+
+
+
+    .rightJam{
+      background-color: rgb(0, 0, 0);
+      height: 15px;
+      width: 10px;
+      float: right;
+      opacity: 0;
+      margin-top: -15px;
+    }
+
+    .rightBlocker {
+      background-color: rgb(255, 255, 255);
+      height: 15px;
+      width: 800px;
+      opacity: 1;
+      margin-top: -15px;
+      margin-left: 620px;
+      z-index: 5;
+      position: relative;
+    }
+
+    .leftBlocker {
+      background-color: rgb(255, 255, 255);
+      height: 15px;
+      width: 500px;
+      opacity: 1;
+      margin-top: -15px;
+      margin-left: -320px;
+      z-index: 5;
+      position: relative;
+    }
+   
+
+    #right {
+      float: right;
+      background-color: rgb(240, 110, 110, 0.5);
+      position: relative;
+      z-index: 10;
+    }
+
+ 
+    #left {
+      background-color: rgb(55, 58, 230, 0.5);
+      position: relative;
+      z-index: 10;
+    }
+
+
+    #left_danger {
+      margin-top: -38px;
+      margin-left: 175px;
+      opacity: 0;
+    }
+
+    #right_danger {
+      margin-top: -38px;
+      margin-left: 409px;
+      opacity: 0;
+    }
+
+    .checks {
+      margin-top: 60px;
+    }
+
+    #right_check {
+      float: right;
+      opacity: 0;
+    }
+
+    #left_check {
+      float: left;
+      opacity: 0;
+    }
+
+    #right_backoff {
+      float: right;
+      opacity: 0;
+      margin-right: -85px;
+    }
+
+    #left_backoff {
+      float: left;
+      opacity: 0;
+      margin-left: -164px;
+    }
+
+    #right_Idle {
+      float: right;
+      opacity: 0;
+      margin-right: -123px;
+    }
+
+    #left_Idle {
+      float: left;
+      opacity: 0;
+      margin-left: -164px;
+    }
+
+    #right_Sense {
+      float: right;
+      opacity: 0;
+      margin-right: -127px;
+    }
+
+    #left_Sense {
+      float: left;
+      opacity: 0;
+      margin-left: -166px;
+    }
+
+    #left_Jam{
+      float: left;
+      opacity: 0;
+      margin-left: -166px;
+    }
+
+    #right_Jam{
+      float: right;
+      opacity: 0;
+      margin-right: -95px;
+    }
+
+    #left_WaitingTime{
+      margin-top: -20px;
+      margin-left: 175px;
+      opacity: 0;
+    }
+   
+    #right_WaitingTime{
+      margin-top: -20px;
+      float: right;
+      opacity: 0;
+    }

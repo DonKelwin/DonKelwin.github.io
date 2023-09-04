@@ -1,0 +1,481 @@
+
+.inputs {
+  padding: 20px 100px;
+  display: inline-block;
+}
+
+.headline {
+  padding: 10px 50px;
+}
+
+.simple-description {
+  padding: 00px 100px;
+}
+
+.Button {
+  cursor: pointer;
+}
+
+.Einzug {
+  padding: 0px 130px;
+}
+
+#router{
+  margin-left: 400px;
+  position: relative;
+  z-index: 10;
+  background-color: white;
+}
+
+#withRTS{
+  opacity: 0;
+  padding-left: 100px;
+  padding-top: 200px;
+  padding-bottom: 50px;
+  width: 1030px;
+  height:fit-content;
+}
+
+
+#withoutRTS{
+  opacity: 0;
+  padding-left: 100px;
+  padding-top: 200px;
+  padding-bottom: 50px;
+  width: 580px;
+  height:500px;
+}
+
+#action {
+  display: absolute;
+}
+
+#start {
+  display: absolute;
+}
+
+#legend{
+  padding-top: 80px;
+  display: flexbox;
+}
+
+#HiddenStations{
+  float:right;
+  margin-top: -150px;
+}
+
+#NoHiddenStations{
+  float:right;
+  margin-left: 550px;
+  margin-top: -80px;
+
+}
+
+.colours{
+  font-size: 18px;
+}
+
+#cRTS{
+  background-color: rgba(240, 126, 32, 0.5);
+  
+}
+
+#cCTS{
+  background-color: rgb(206, 183, 55, 0.5);
+  
+}
+
+#cDataL{
+  background-color: rgba(55, 58, 230, 0.5);
+  
+}
+
+#cDataR{
+  background-color: rgb(240, 110, 110, 0.5);
+  
+}
+
+#left_BlockerWith{
+  width: 53px;
+  background-color: white;
+  position: relative;
+  z-index: 5;
+  height: 20px;
+  margin-top: -45px;
+  margin-left: 35px;
+}
+
+#right_BlockerWith{
+  width: 53px;
+  background-color: white;
+  position: relative;
+  z-index: 5;
+  float: right;
+  height: 20px;
+  margin-top: -73px;
+  margin-right: -69px;
+
+}
+
+
+#cACK{
+  background-color: rgb(75, 207, 48, 0.5);
+  
+}
+
+#right {
+  background-color: rgb(240, 110, 110, 0.5);
+  margin-left: 400px;
+  position: relative;
+  z-index: 10;
+}
+
+
+#left {
+  float:left;
+  background-color: rgb(55, 58, 230, 0.5);
+  position: relative;
+  z-index: 10;
+}
+
+.rightbox {
+  background-color: rgb(240, 110, 110);
+  height: 15px;
+  width: 100;
+  float: right;
+  opacity: 0;
+  margin-top: -15px;
+  margin-right: -80px;
+}
+
+.leftbox {
+  background-color: rgba(55, 58, 230);
+  height: 15px;
+  width: 100;
+  opacity: 0;
+  margin-top: -50px;
+  margin-left: - 100px 
+}
+
+.rightboxWithout {
+  background-color: rgb(240, 110, 110);
+  height: 15px;
+  float: right;
+  opacity: 0;
+  margin-top: -15px;
+  margin-right: 0px;
+}
+
+.leftboxWithout {
+  background-color: rgba(55, 58, 230);
+  height: 15px;
+  opacity: 0;
+  margin-top: -50px;
+  margin-left: - 100px 
+}
+
+
+.leftRTS {
+  background-color: rgb(240, 125, 32);
+  height: 15px;
+  width: 15px;
+  opacity: 0;
+  margin-top: -15px;
+  margin-left: 38px;
+  position: relative;
+
+}
+
+.rightRTS{
+  background-color: rgb(240, 125, 32);
+  height: 15px;
+  width: 15px;
+  float: right;
+  opacity: 0;
+  margin-right: 38px;
+  margin-top: -15px;
+  position: relative;
+  
+}
+
+.leftCTS {
+  background-color: rgb(206, 183, 55);
+  height: 15px;
+  width: 15px;
+  opacity: 0;
+  float:right;
+  margin-top: -15px;
+  margin-right: 525px;
+
+}
+
+.rightCTS{
+  background-color: rgb(206, 183, 55);
+  height: 15px;
+  width: 15px;
+  opacity: 0;
+  margin-left: 516px;
+  margin-top: -15px;
+  
+}
+
+.leftACK {
+  background-color: rgb(75, 207, 48);
+  height: 15px;
+  width: 15px;
+  opacity: 0;
+  float:right;
+  margin-top: -15px;
+  margin-right: 525px;
+
+}
+
+.rightACK{
+  background-color: rgb(75, 207, 48);
+  height: 15px;
+  width: 15px;
+  opacity: 0;
+  margin-left: 516px;
+  margin-top: -15px;
+  
+}
+
+.leftACKWithout {
+  background-color: rgb(75, 207, 48);
+  height: 15px;
+  width: 15px;
+  opacity: 0;
+  float:right;
+  margin-top: -50px;
+  margin-right: 498px;
+
+}
+
+.rightACKWithout{
+  background-color: rgb(75, 207, 48);
+  float:left;
+  height: 15px;
+  width: 15px;
+  opacity: 0;
+  margin-left: 473px;
+  margin-top: -50px;
+  
+}
+
+
+.rightBlock{
+  background-color: rgb(255, 255, 255);
+  height: 15px;
+  width: 20px;
+  opacity: 1;
+  margin-left: 516px;
+  margin-top: -15px;
+  position: relative;
+  z-index: 1;
+}
+
+.leftBlock{
+  background-color: rgb(255, 255, 255);
+  height: 15px;
+  width: 22px;
+  opacity: 1;
+  float:right;
+  margin-right: 522px;
+  margin-top: -15px;
+  position: relative;
+  z-index: 1;
+}
+
+#RTS{
+  margin-top: 35px;
+}
+
+#left_RTS_POI{
+  opacity: 0;
+}
+
+#right_RTS_POI{
+  float:right;
+  opacity: 0;
+}
+
+#Blocked{
+  margin-top: -20px;
+}
+
+#left_Blocked_POI{
+  opacity: 0;
+}
+
+#right_Blocked_POI{
+  float:right;
+  margin-right: -100px;
+  opacity: 0;
+}
+
+#TimeoutsWith{
+  margin-top: -20px;
+}
+
+#left_TimeoutedWith{
+  opacity: 0;
+
+}
+
+#right_TimeoutedWith{
+  float:right;
+  margin-right: -125px;
+  opacity: 0;
+}
+
+#checks{
+  margin-top: -20px;
+}
+
+
+#left_check_POI{
+  opacity: 0;
+}
+
+#right_check_POI{
+  float:right;
+  margin-right: -105px;
+  opacity: 0;
+}
+
+#sending{
+  margin-top: -20px;
+}
+
+#left_sending_POI{
+  opacity: 0;
+}
+
+#right_sending_POI{
+  float:right;
+  margin-right: -130px;
+  opacity: 0;
+}
+
+#CTS {
+  margin-left: 450px;
+  margin-top: -20px;;
+}
+
+#left_CTS_POI{
+  opacity: 0;
+}
+
+#right_CTS_POI {
+  margin-left: -140px;
+  opacity: 0;
+}
+
+#backoffWith{
+}
+
+#left_backoffWith{
+  opacity: 0;
+}
+
+#right_backoffWith{
+  float:right;
+  opacity: 0;
+}
+
+#PausebackoffWith{
+  margin-top: -20px;
+}
+
+#left_backoffPauseWith{
+  opacity: 0;
+}
+
+#right_backoffPauseWith{
+  float:right;
+  opacity: 0;
+  margin-right: -95px;
+}
+
+#POILeftWaiterWith{
+  margin-top: -70px;
+  margin-left: 90px;
+  width: 300px;
+  opacity: 0;
+}
+
+#POIRightWaiterWith{
+  float:right;
+  margin-right: -10px;
+  margin-top: -50px;
+  opacity: 0;
+}
+
+#POIWithout{
+  margin-top: 45px;
+}
+
+#POILeftWaiter{
+  margin-top: -30px;
+  margin-left: 90px;
+  width: 300px;
+  opacity: 0;
+}
+
+#POIRightWaiter{
+  float:right;
+  margin-right: 95px;
+  margin-top: -20px;
+  opacity: 0;
+}
+
+#right_backoff{
+  float:right;
+  opacity: 0;
+}
+
+#left_backoff{
+  opacity: 0;
+}
+
+#Pausebackoff{
+  margin-top: -20px;
+}
+
+#left_backoffPause{
+  opacity: 0;
+}
+
+#right_backoffPause{
+  float:right;
+  margin-right: -100px;
+  opacity: 0;
+}
+
+#Timeouts{
+  margin-top: -20px;
+}
+
+#left_Timeouted{
+  opacity: 0;
+}
+
+#right_Timeouted{
+  float:right;
+  opacity: 0;
+  margin-right: -90px;
+}
+
+#checksWithout{
+  margin-top: -20px;
+}
+
+#left_check_POI_Without{
+  opacity: 0;
+}
+
+#right_check_POI_Without{
+  float:right;
+  opacity: 0;
+  margin-right: -90px;
+}

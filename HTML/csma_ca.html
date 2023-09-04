@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSMA/CA</title>
+  <link rel="icon" href="../Pictures/RouterIcon.png">
+  <link rel="stylesheet" href="../CSS/csma_ca.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"
+    integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+</head>
+
+<body>
+  <script src="../JS/CSMA_CA.js"></script>
+  <!-- Always shows a header, even in smaller screens. -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title"><a class="mdl-navigation__link" href="../index.html">CSMA</a></span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <a class="mdl-navigation__link" href="csma_cd.html">CSMA/CD</a>
+          <a class="mdl-navigation__link" href="csma_ca.html">CSMA/CA</a>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title"><a class="mdl-navigation__link" href="../index.html">CSMA</a></span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="csma_cd.html">CSMA/CD</a>
+        <a class="mdl-navigation__link" href="csma_ca.html">CSMA/CA</a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div class="page-content"><!-- Your content goes here -->
+
+        <p>
+        <h3 class="headline">CSMA/CA</h3>
+
+        <h6 class="headline description">Carrier Sense Multiple Acces with Collision Avoidance</h6>
+        <br>
+        <br>
+
+
+        <p class="simple-description">This version of CSMA is used in wireless networks, mostly WiFi. The collision is
+          resolved with a backoff, but mostly avoided, as it has to wait
+          for ackknowledgements to proceed. The applet assumes a propagation speed of 3*10<sup>8</sup> m/s, which is the
+          standard propagation of radio waves in the air. It is limited to a total of 155 Meters distance between nodes
+          as this is about the maximum distance for a outdoor wireless connection. Keep in mind that the backoff in CSMA/CA is longer then the displayed slot-times.
+          You can decide whether the RTS/CTS addition is activated.
+          <br>
+          <br>
+          5 simple steps to get it running:
+        <p class="Einzug">
+          1. Type in the distance between each node in meters (higher values are recommended e.g. >75m but below 155m)
+          <br>
+          2. Type in the frame size in byte<br>
+          3. Type in the transmission speed in Mbit/s <br>
+          4. Check or uncheck the RTS/CTS addition. <br>
+          5. Hit "Start"
+          <br>
+          <br>
+          E.g. 75 m &nbsp;&nbsp;&nbsp;&nbsp; 500 byte &nbsp;&nbsp;&nbsp;&nbsp; 100 Mbit/s
+        </p>
+        </p>
+
+        <p class="simple-description">Then click on a device to send data in a wireless network.</p>
+
+        </p>
+        <div class="inputs">
+          <form
+            onsubmit="initialize(distanceField.value, byteField.value, transmissionSpeed.value, this); return false;">
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" pattern="([1-9]|[1-9][0-9]|1[0-4][0-9]|15[0-5])"
+                id="distanceField">
+              <label class="mdl-textfield__label" for="distanceField">Distance in meter</label>
+              <span class="mdl-textfield__error">Input is invalid!</span>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" pattern="[0-9]*(\.[0-9]+)?" id="byteField">
+              <label class="mdl-textfield__label" for="byteField">Frame Size in byte</label>
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" pattern="[0-9]*(\.[0-9]+)?" id="transmissionSpeed">
+              <label class="mdl-textfield__label" for="transmissionSpeed">Transmission speed in Mbit/s </label>
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+              <input type="checkbox" name="RTS" id="checkbox-1" class="mdl-checkbox__input" checked>
+              <span class="mdl-checkbox__label">RTS/CTS Addition (hidden stations)</span>
+            </label>
+
+            <!-- Colored raised button -->
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              Start
+            </button>
+          </form>
+        </div>
+        <div id="withRTS">
+          <div id="action">
+            <div class="nav">
+              <button id="pause" onclick="stopping()">
+                Pause
+              </button>
+              <button id="play" onclick="resume()">
+                Resume
+              </button>
+            </div>
+            <button id="left" class="Button" onclick="startNetwork1()"><img src="../Pictures/devices.png" height="75"
+                alt="Submit"></button>
+            <span id="router"><img src="../Pictures/RouterIcon.png" height="52"></span>
+            <button id="right" class="Button" onclick="startNetwork2()"><img src="../Pictures/devices.png" height="75"
+                alt="Submit"></button>
+            <div class=transition>
+              <div class="leftbox"></div>
+              <div class="rightbox"></div>
+              <div class="leftRTS"></div>
+              <div class="rightRTS"></div>
+              <div class="leftCTS"></div>
+              <div class="rightCTS"></div>
+              <div class="leftACK"></div>
+              <div class="rightACK"></div>
+              <div class="leftBlock"></div>
+              <div class="rightBlock"></div>
+            </div>
+            <div id="RTS">
+              <span id="left_RTS_POI"> Waiting for CTS </span>
+              <span id="right_RTS_POI"> Waiting for CTS </span>
+            </div>
+            <div id="Blocked">
+              <span id="left_Blocked_POI"> Channel blocked </span>
+              <span id="right_Blocked_POI"> Channel blocked </span>
+            </div>
+            <div id=checks>
+              <span id="left_check_POI"> <img src="../Pictures/check.png" alt="check" height="20"> Sending
+                complete</span>
+              <span id="right_check_POI"> <img src="../Pictures/check.png" alt="check" height="20">Sending
+                complete</span>
+            </div>
+            <div id="sending">
+              <span id="left_sending_POI"> Sending </span>
+              <span id="right_sending_POI"> Sending </span>
+            </div>
+            <div id="CTS">
+              <span id="left_CTS_POI"> left aquired Channel </span>
+              <span id="right_CTS_POI"> right aquired Channel </span>
+            </div>
+            <div id="TimeoutsWith">
+              <span id="left_TimeoutedWith"> Timeout </span>
+              <span id="right_TimeoutedWith"> Timeout</span>
+            </div>
+            <div id="backoffWith">
+              <span id="left_backoffWith"> Waiting Backoff </span>
+              <span id="right_backoffWith"> Waiting Backoff </span>
+            </div>
+            <div id="PausebackoffWith">
+              <span id="left_backoffPauseWith"> Pausing Backoff </span>
+              <span id="right_backoffPauseWith"> Pausing Backoff </span>
+            </div>
+            <div id="POILeftWaiterWith">I must wait <span id="left_RandomValueWith">0</span> time-slots. (0-<span id="left_max_value_range_With">0</span>)</div>
+            <div id="POIRightWaiterWith">I must wait <span id="right_RandomValueWith">0</span> time-slots. (0-<span id="right_max_value_range_With">0</span>)</div>
+            <div id="left_BlockerWith"> </div>
+            <div id="right_BlockerWith"> </div>
+          </div>
+          <div id="legend">
+            <div id="colourLegend"></div>
+            <h3>Colour-Legend</h3>
+            <div class="colours"> <span id="cRTS"> RTS</span></div>
+            <div class="colours"> <span id="cCTS"> CTS</span></div>
+            <div class="colours"> <span id="cDataL"> Data from left node</span></div>
+            <div class="colours"> <span id="cDataR"> Data from right node</span></div>
+            <div class="colours"> <span id="cACK"> ACK</span></div>
+            <div id="HiddenStations"><img src="../Pictures/HiddenStations.PNG" alt="Hidden Stations" height="300"></div>
+          </div>
+        </div>
+        <div id="withoutRTS">
+          <div id="start">
+            <div class="nav">
+              <button id="pauseWithout" onclick="stopping()">
+                Pause
+              </button>
+              <button id="playWithout" onclick="resume()">
+                Resume
+              </button>
+            </div>
+            <button id="left" class="Button" onclick="startNetwork1()"><img src="../Pictures/devices.png" height="75"
+                alt="Submit"></button>
+            <button id="right" class="Button" onclick="startNetwork2()"><img src="../Pictures/devices.png" height="75"
+                alt="Submit"></button>
+            <div class=transition>
+              <div class="leftboxWithout"></div>
+              <div class="rightboxWithout"></div>
+              <div class="leftACKWithout"></div>
+              <div class="rightACKWithout"></div>
+            </div>
+            <div id="POIWithout">
+              <div id="POILeftWaiter">I must wait <span id="left_RandomValue">0</span> time-slots. (0-<span id="left_max_value_range">0</span>)</div>
+              <div id="POIRightWaiter">I must wait <span id="right_RandomValue">0</span> time-slots. (0-<span id="right_max_value_range">0</span>)</div>
+              <div id="backoff">
+                <span id="left_backoff"> Waiting Backoff </span>
+                <span id="right_backoff"> Waiting Backoff </span>
+              </div>
+              <div id="Pausebackoff">
+                <span id="left_backoffPause"> Pausing Backoff </span>
+                <span id="right_backoffPause"> Pausing Backoff </span>
+              </div>
+              <div id="Timeouts">
+                <span id="left_Timeouted"> Timeout </span>
+                <span id="right_Timeouted"> Timeout</span>
+              </div>
+              <div id=checksWithout>
+                <span id="left_check_POI_Without"> <img src="../Pictures/check.png" alt="check" height="20"> Sending
+                  complete</span>
+                <span id="right_check_POI_Without"> <img src="../Pictures/check.png" alt="check" height="20">Sending
+                  complete</span>
+              </div>
+              <div id="legend">
+                <div id="colourLegend"></div>
+                <h3>Colour-Legend</h3>
+                <div class="colours"> <span id="cDataL"> Data from left node</span></div>
+                <div class="colours"> <span id="cDataR"> Data from right node</span></div>
+                <div class="colours"> <span id="cACK"> ACK</span></div>
+                <div id="NoHiddenStations"><img src="../Pictures/NoHiddenStations.PNG" alt="Hidden Stations" height="250"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+</html>
