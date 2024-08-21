@@ -57,11 +57,13 @@ body {
 }
 
 #message {
+    margin-left:-50px;
     margin-top: 20px;
     font-size: 20px;
 }
 
 #history {
+    margin-left:-50px;
     margin-top: 20px;
     font-size: 18px;
     color: #333;
