@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 200px; /* Abstand für Platzierung des Kreises */
+}
+
+#circle {
+    position: relative;
+    width: 400px;  /* Größe des Kreises */
+    height: 400px; /* Größe des Kreises */
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.section {
+    position: absolute;
+    width: 50px;   /* Größe der Flächen */
+    height: 50px;  /* Größe der Flächen */
+    border: 2px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: cyan;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    font-size: 16px; /* Schriftgröße */
+    text-align: center;
+}
+
+.section:hover {
+    background-color: lightcyan;
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+#history {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+    display: flex; /* Horizontale Ausrichtung der Historie */
+    overflow-x: auto; /* Ermöglicht Scrollen bei zu vielen Einträgen */
+    white-space: nowrap; /* Verhindert Zeilenumbruch */
+}
+
+#history span {
+    display: inline-block;
+    margin-right: 10px; /* Abstand zwischen den Einträgen */
+}
+
+#message a {
+    color: #4CAF50; /* Farbe des Links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#message a:hover {
+    text-decoration: underline; /* Unterstreicht den Link bei Hover */
+}
