@@ -5,7 +5,7 @@ const message = document.getElementById('message');
 
 // Erzeuge 12 Flächen im Kreis
 const totalSections = correctOrder.length;
-const radius = 180; // Radius des Kreises
+const radius = 160; // Radius des Kreises
 const sectionSize = 50; // Größe der Flächen
 const angleStep = 2 * Math.PI / totalSections; // Schrittwinkel
 
