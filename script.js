@@ -1,55 +1,58 @@
-const correctOrder = [2, 5, 8, 1, 4, 7, 10, 3, 6, 9, 12, 11]; // Festgelegte Reihenfolge
-let userClicks = [];
-let history = [];
-const circle = document.getElementById('circle');
-const message = document.getElementById('message');
-const historyList = document.getElementById('history');
+document.addEventListener("DOMContentLoaded", function() {
+    const numStars = 150;
+    const starsContainer = document.createElement('div');
+    starsContainer.classList.add('stars');
+    document.body.appendChild(starsContainer);
 
-// Erzeuge 12 Flächen im Kreis
-const totalSections = correctOrder.length;
-const radius = 160; // Radius des Kreises
-const sectionSize = 50; // Größe der Flächen
-const angleStep = 2 * Math.PI / totalSections; // Schrittwinkel
+    for (let i = 0; i < numStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        const x = Math.random() - 0.5;  // Zufällige Richtung
+        const y = Math.random() - 0.5;  // Zufällige Richtung
+        star.style.setProperty('--x', x);
+        star.style.setProperty('--y', y);
+        star.style.top = "50%";
+        star.style.left = "50%";
+        star.style.animationDuration = `${Math.random() * 1.5 + 1.5}s`;
+        starsContainer.appendChild(star);
+    }
 
-function updateHistory() {
-    historyList.innerHTML = history.map(num => `<span>${num}</span>`).join('');
-}
+    // Positionierung der Kreiselemente im Kreis
+    const sections = document.querySelectorAll(".section");
+    const circleRadius = 150; // Radius des Kreises
+    const centerX = 200; // Mitte des Kreises X
+    const centerY = 200; // Mitte des Kreises Y
 
-for (let i = 0; i < totalSections; i++) {
-    const section = document.createElement('div');
-    section.classList.add('section');
-    section.textContent = i + 1;
-
-    const angle = i * angleStep;
-    const x = radius + radius * Math.cos(angle) - sectionSize / 2;
-    const y = radius + radius * Math.sin(angle) - sectionSize / 2;
-
-    section.style.left = `${x}px`;
-    section.style.top = `${y}px`;
-
-    section.addEventListener('click', () => {
-        if (userClicks.length < 12) { // Maximal 12 Klicks erlauben
-            userClicks.push(parseInt(section.textContent));
-            history.push(parseInt(section.textContent)); // Füge zur Historie hinzu
-            section.classList.add('clicked');
-            section.style.opacity = '0'; // Flächen verschwinden lassen
-            updateHistory(); // Historie aktualisieren
-
-            // Nach einer kurzen Zeit die Fläche wieder sichtbar machen
-            setTimeout(() => {
-                section.style.opacity = '1'; // Flächen wieder sichtbar
-            }, 500); // Zeit in Millisekunden, die die Flächen verschwinden
-
-            // Überprüfen, ob alle Flächen angeklickt wurden
-            if (userClicks.length === 12) {
-                if (userClicks.toString() === correctOrder.toString()) {
-                    message.innerHTML = 'Erfolg! Du hast die Flächen in der richtigen Reihenfolge angeklickt. <a href="https://www.example.com" target="_blank">Hier geht es weiter</a>.';
-                } else {
-                    message.textContent = 'Fehler! Die Reihenfolge stimmt nicht.';
-                }
-            }
-        }
+    sections.forEach((section, index) => {
+        const angle = (index / sections.length) * 2 * Math.PI;
+        const x = centerX + circleRadius * Math.cos(angle) - 25;
+        const y = centerY + circleRadius * Math.sin(angle) - 25;
+        section.style.left = `${x}px`;
+        section.style.top = `${y}px`;
     });
 
-    circle.appendChild(section);
-}
+    const correctSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    let clickedSequence = [];
+    const message = document.getElementById("message");
+    const history = document.getElementById("history");
+
+    sections.forEach(section => {
+        section.addEventListener("click", function() {
+            const number = parseInt(this.innerText);
+            clickedSequence.push(number);
+            const historyEntry = document.createElement("span");
+            historyEntry.innerText = number;
+            history.appendChild(historyEntry);
+
+            if (clickedSequence.length === 12) {
+                if (JSON.stringify(clickedSequence) === JSON.stringify(correctSequence)) {
+                    message.innerHTML = 'Erfolg! <a href="#">Weiter</a>';
+                } else {
+                    message.innerText = "Fehlgeschlagen!";
+                }
+                clickedSequence = [];
+                history.innerHTML = ''; // Historie zurücksetzen
+            }
+        });
+    });
+});
