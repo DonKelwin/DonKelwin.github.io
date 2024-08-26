@@ -117,24 +117,24 @@ def compare_correct(sensor_number):
 # Anzahl der LEDs im Ring
 NUM_LEDS = 12
 
-# Definiere den GPIO-Pin, an den der DIN des LED-Rings angeschlossen ist
+# LED_Ring
 pin = machine.Pin(10)
 
 # Initialisiere das NeoPixel-Objekt
 np = neopixel.NeoPixel(pin, NUM_LEDS)
 
-# Funktion, um eine einzelne LED anzusteuern
+#Einzelne LED
 def set_led(led_number, color):
     np[led_number] = color
     np.write()
 
-# Funktion, um die LEDs mit einer Farbe zu füllen
+# Alle LED'S
 def fill(color):
     for i in range(NUM_LEDS):
         np[i] = color
     np.write()
     
-# Optional: Alle LEDs ausschalten
+# Alle LEDs aus
 def clear_all():
     for i in range(NUM_LEDS):
         np[i] = (0, 0, 0)
@@ -149,14 +149,14 @@ colors = [
 
 base_color = (255, 255, 255)  # Cyan Helle Farbe
 
-# Funktion zur Anpassung der Helligkeit
+# Anpassung der Helligkeit
 def dim_color(color, factor):
     val1 = color[0]
     val2 = color[1]
     val3 = color[2]
     return (int(val1 * factor), int(val2 * factor), int(val3 * factor))
 
-
+# Dreht sich im Kreis für gewisse Sekunden duration
 def spinning_pattern(duration):
     start_time = time.time()
     
@@ -164,17 +164,15 @@ def spinning_pattern(duration):
     trail_length = 4
 
     # Helligkeitsfaktoren für die LEDs im "Schweif"
-    brightness_factors = [1.0, 0.6, 0.3, 0.1]  # Vorderste LED hell, nachfolgende dunkler
+    brightness_factors = [1.0, 0.6, 0.3, 0.1] 
     
     while time.time() - start_time < duration:
         for i in range(NUM_LEDS):
-            # Setze die Farben für die LEDs im "Schweif"
             for j in range(trail_length):
                 led_index = (i - j) % NUM_LEDS
                 color = dim_color(base_color, brightness_factors[j])
                 set_led(led_index, color)
             
-            # Schalte alle anderen LEDs aus
             for k in range(trail_length, NUM_LEDS):
                 np[(i - k) % NUM_LEDS] = (0, 0, 0)
             
@@ -182,7 +180,7 @@ def spinning_pattern(duration):
             np.write()
             
             # Warte kurz, bevor die nächste LED eingeschaltet wird
-            time.sleep(0.1)  # Geschwindigkeit anpassen
+            time.sleep(0.1) 
 
     clear_all()
 
@@ -207,7 +205,6 @@ def light_show():
 #Values messen_____________________________
 
 #Eingangsmessung
-led_on()
 #init(1)
 #init(2)
 #init(3)
@@ -215,7 +212,7 @@ led_on()
 
 #Vergleichsmessung
 def messung():
-    led_on()
+    led_on() #Anpassen für Glow-in-the-dark zu off
     clear_all()
     valid1 = compare_correct(1)
     valid2 = compare_correct(2)
@@ -237,3 +234,4 @@ def messung():
     
 #Startup
 messung()
+
