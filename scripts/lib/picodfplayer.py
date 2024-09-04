@@ -30,7 +30,7 @@ class DFPlayer():
         checksum = -(self.VERSION_BYTE + self.COMMAND_LENGTH + command + self.ACKNOWLEDGE + parameter1 + parameter2)
         highByte, lowByte = self.split(checksum)
         toSend = bytes([b & 0xFF for b in [self.START_BYTE, self.VERSION_BYTE, self.COMMAND_LENGTH, command, self.ACKNOWLEDGE,parameter1, parameter2, highByte, lowByte, self.END_BYTE]])
-
+        
         self.uart.write(toSend)
         sleep_ms(self.COMMAND_LATENCY)
         return self.uart.read()
@@ -99,7 +99,7 @@ class DFPlayer():
         self.sendcmd(0x0E, 0x00, 0x00)
 
     def playTrack(self, folder, file):
-        self.sendcmd(0x0D, folder, file)
+        self.sendcmd(0x0F, folder, file)
                  
     def playMP3(self, filenum):
         a = (filenum >> 8) & 0xff

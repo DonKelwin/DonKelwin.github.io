@@ -10,20 +10,21 @@ from picodfplayer import DFPlayer
 UART_INSTANCE=1
 TX_PIN = 4
 RX_PIN = 5
-BUSY_PIN = 6
+BUSY_PIN = 18
 
 #Create player instance
 player=DFPlayer(UART_INSTANCE, TX_PIN, RX_PIN, BUSY_PIN)
 sleep(2)
-
+player.setVolume(20)
 #Check if player is busy.
 print('Playing?', player.queryBusy())
 #Play the first song (001.mp3) from the first folder (01)
 
 print('Playing track 001.mp3 in folder 01')
-player.resume()
+if not player.queryBusy():
+    player.playTrack(2, 2)
 #Wait 5 seconds...
-sleep(5)
+sleep(2)
 
 #Pause
 print('Pausing')

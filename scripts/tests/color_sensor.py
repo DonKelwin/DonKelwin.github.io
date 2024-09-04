@@ -6,17 +6,17 @@ import neopixel
 import time
 
 # Initialize I2C
-i2c1 = I2C(0, scl=Pin(1), sda=Pin(0), freq=400000)
-i2c2 = I2C(0, scl=Pin(21), sda=Pin(20), freq=400000)
+#i2c1 = I2C(0, scl=Pin(1), sda=Pin(0), freq=400000)
+i2c2 = I2C(1, scl=Pin(15), sda=Pin(14), freq=400000)
 #i2c3 =
 
 # Initialize the sensor
-sensor1 = TCS3472(i2c1)
+#sensor1 = TCS3472(i2c1)
 sensor2 = TCS3472(i2c2)
 #sensor3 = TCS3472(i2c3)
 
 # LED Control Pin
-led_pin_sensor1 = Pin(2, Pin.OUT)
+#led_pin_sensor1 = Pin(2, Pin.OUT)
 led_pin_sensor2 = Pin(16, Pin.OUT)
 #led_pin_sensor3 = Pin(_, Pin.OUT)
 
@@ -30,13 +30,13 @@ delta_value = 100
 
 # Function to turn LED on
 def led_on():
-    led_pin_sensor1.value(1)
+    #led_pin_sensor1.value(1)
     led_pin_sensor2.value(1)
     #led_pin_sensor3.value(1)
     
 # Function to turn LED off
 def led_off():
-    led_pin_sensor1.value(0)
+    #led_pin_sensor1.value(0)
     led_pin_sensor2.value(0)
     #led_pin_sensor3.value(0)
 
@@ -118,7 +118,7 @@ def compare_correct(sensor_number):
 NUM_LEDS = 12
 
 # LED_Ring
-pin = machine.Pin(10)
+pin = machine.Pin(22)
 
 # Initialisiere das NeoPixel-Objekt
 np = neopixel.NeoPixel(pin, NUM_LEDS)
