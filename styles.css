@@ -36,6 +36,7 @@ body {
     z-index: 2;
 }
 
+
 .section {
     position: absolute;
     width: 50px;
@@ -97,37 +98,36 @@ body {
 
 .star {
     position: absolute;
-    width: 2px; /* Kleinere Startpunktgröße für realistischere Sterne */
+    width: 2px; 
     height: 2px;
     background: white;
     border-radius: 50%;
     opacity: 1;
     transform-origin: center;
-    animation: flyOut 20s linear forwards; /* Verweilt nach 20 Sekunden */
+    animation: flyOut 20s linear forwards; 
 }
 
-/* Keyframes für den Hyperraum-Effekt */
 @keyframes flyOut {
     0% {
-        transform: scale(0.1); /* Verkleinertes Startmaß */
+        transform: scale(0.1); 
         opacity: 1;
     }
     100% {
-        transform: translateX(calc(var(--x) * 150vw)) translateY(calc(var(--y) * 150vh)) scale(1); /* Kleinere Endgröße */
+        transform: translateX(calc(var(--x) * 150vw)) translateY(calc(var(--y) * 150vh)) scale(1); 
         opacity: 1;
     }
 }
 
 .shooting-star {
     position: absolute;
-    width: 4px; /* Moderate Größe */
+    width: 4px; 
     height: 4px;
     background: white;
     border-radius: 50%;
-    box-shadow: 0 0 20px 6px rgba(255, 255, 255, 0.8), 0 0 40px 20px rgba(192, 192, 192, 0.5); /* Weißer Kern und grauer Schweif */
+    box-shadow: 0 0 20px 6px rgba(255, 255, 255, 0.8), 0 0 40px 20px rgba(192, 192, 192, 0.5); 
     opacity: 0;
     transform-origin: center;
-    animation: shooting 2.5s ease-in-out forwards; /* Langsamere Animation */
+    animation: shooting 2.5s ease-in-out forwards; 
 }
 
 @keyframes shooting {
@@ -137,11 +137,91 @@ body {
     }
     50% {
         opacity: 1;
-        transform: translateX(40vw) translateY(-40vh) scale(1.2); /* Langsam und größer */
+        transform: translateX(40vw) translateY(-40vh) scale(1.2); 
     }
     100% {
         opacity: 0;
-        transform: translateX(80vw) translateY(-80vh) scale(1); /* Beibehaltung der Sichtbarkeit */
+        transform: translateX(80vw) translateY(-80vh) scale(1);
     }
 }
 
+/* Vorhandener Code bleibt unverändert */
+
+.section {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: white; /* Zahlenflächen bleiben weiß */
+    color: black;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: box-shadow 0.3s;
+}
+
+.section:hover {
+    background-color: lightgray;
+}
+
+
+.clicked {
+    animation: click-highlight 0.5s forwards;
+}
+
+@keyframes click-highlight {
+    0% {
+        box-shadow: none;
+    }
+    50% {
+        box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+        box-shadow: none;
+    }
+}
+
+@keyframes star-twinkle {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+.star {
+    position: absolute;
+    width: 2px; 
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 1;
+    transform-origin: center;
+    animation: flyOut 20s linear forwards, star-twinkle 4s infinite ease-in-out; /* Twinkle-Animation */
+}
+
+.shooting-star {
+    position: absolute;
+    width: 4px; 
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 6px rgba(255, 255, 255, 0.8), 0 0 40px 20px rgba(192, 192, 192, 0.5); 
+    opacity: 0;
+    transform-origin: center;
+    animation: shooting 2.5s ease-in-out forwards; 
+}
+
+@keyframes shooting {
+    0% {
+        opacity: 0;
+        transform: translateX(0) translateY(0) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(40vw) translateY(-40vh) scale(1.2); 
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(80vw) translateY(-80vh) scale(1);
+    }
+}
