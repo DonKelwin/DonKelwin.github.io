@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
         section.style.top = `${y}px`;
     });
 
-    const correctSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    const correctSequence = [3,3,4,7,1,6,10,11,2,9,8,12];
     let clickedSequence = [];
     const message = document.getElementById("message");
     const history = document.getElementById("history");
