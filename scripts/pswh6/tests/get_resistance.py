@@ -3,7 +3,7 @@ import utime
 
 MEASUREMENT_COUNT = 5
 
-
+# Measurement of voltage in Wheatstone Bridge with ADC Pins of Pico
 def main():
     adc_1 = ADC(1)
     adc_2 = ADC(2)
