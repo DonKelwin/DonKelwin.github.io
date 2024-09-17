@@ -1,8 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: black; /* Schwarzer Hintergrund für den Weltraum-Effekt */
-    overflow: hidden; 
+    background-color: black; /* Black background for the space effect */
+    overflow: hidden;
 }
 
 .header {
@@ -23,16 +23,16 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Zentriert den Inhalt vertikal und horizontal */
+    height: 100vh; 
     position: relative;
 }
 
-#circle {
+#circle { 
     position: relative;
     width: 400px;
     height: 400px;
-    margin-top: -60px; /* Justiert die Position des Kreises relativ zum Container */
-    border-radius: 50%; /* Rundet den Container zu einem Kreis */
+    margin-top: -60px;
+    border-radius: 50%; 
     z-index: 2;
 }
 
@@ -47,11 +47,11 @@ body {
     border-radius: 50%; 
     cursor: pointer; 
     font-size: 18px;
-    transition: box-shadow 0.3s; /* Glatte Übergänge beim Hover */
+    transition: box-shadow 0.3s; 
 }
 
 .section:hover {
-    background-color: lightgray; /* Farbänderung beim Hover */
+    background-color: lightgray; 
 }
 
 #message, #history {
@@ -61,12 +61,12 @@ body {
 
 #history {
     display: flex;
-    overflow-x: auto; /* Ermöglicht das horizontale Scrollen */
-    white-space: nowrap; /* Verhindert Zeilenumbrüche */
+    overflow-x: auto; 
+    white-space: nowrap; 
 }
 
 #history span {
-    margin-right: 10px; /* Abstand zwischen den Elementen */
+    margin-right: 10px; 
 }
 
 #message a {
@@ -76,19 +76,19 @@ body {
 }
 
 #message a:hover {
-    text-decoration: underline; /* Unterstreicht den Link beim Hover */
+    text-decoration: underline; 
 }
 
-/* Sterne-Hintergrund */
+/* Stars background */
 .stars {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, transparent, black); /* Simuliert einen Sternenhimmel */
+    background: radial-gradient(circle, transparent, black); 
     overflow: hidden;
-    z-index: 1; /* Hintergrundebene unter dem Kreis */
+    z-index: 1; 
 }
 
 .star {
@@ -97,16 +97,16 @@ body {
     height: 2px;
     background: white;
     border-radius: 50%;
-    animation: flyOut 20s linear forwards; /* Sterne bewegen sich von der Mitte nach außen */
+    animation: flyOut 20s linear forwards; /* Stars move outward from the center */
 }
 
 @keyframes flyOut {
     0% {
-        transform: scale(0.1); /* Startet klein */
+        transform: scale(0.1); 
         opacity: 1;
     }
     100% {
-        transform: translateX(calc(var(--x) * 150vw)) translateY(calc(var(--y) * 150vh)) scale(1); /* Bewegt sich nach außen */
+        transform: translateX(calc(var(--x) * 150vw)) translateY(calc(var(--y) * 150vh)) scale(1); 
         opacity: 1;
     }
 }
@@ -117,8 +117,8 @@ body {
     height: 4px;
     background: white;
     border-radius: 50%;
-    box-shadow: 0 0 20px 6px rgba(255, 255, 255, 0.8), 0 0 40px 20px rgba(192, 192, 192, 0.5); /* Strahleneffekt */
-    animation: shooting 2.5s ease-in-out forwards; /* Animiert die Sternschnuppe */
+    box-shadow: 0 0 20px 6px rgba(255, 255, 255, 0.8), 0 0 40px 20px rgba(192, 192, 192, 0.5); 
+    animation: shooting 2.5s ease-in-out forwards; /* Animates the shooting star */
 }
 
 @keyframes shooting {
@@ -127,16 +127,16 @@ body {
     }
     50% {
         opacity: 1;
-        transform: translateX(40vw) translateY(-40vh) scale(1.2); /* Bewegt sich diagonal über den Bildschirm */
+        transform: translateX(40vw) translateY(-40vh) scale(1.2);
     }
     100% {
         opacity: 0;
-        transform: translateX(80vw) translateY(-80vh) scale(1); /* Verlässt den Bildschirm */
+        transform: translateX(80vw) translateY(-80vh) scale(1); 
     }
 }
 
 .clicked {
-    animation: click-highlight 0.5s forwards; /* Kurze Hervorhebung beim Klicken */
+    animation: click-highlight 0.5s forwards; /* Brief highlight effect on click */
 }
 
 @keyframes click-highlight {
@@ -144,19 +144,19 @@ body {
         box-shadow: none;
     }
     50% {
-        box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.8); /* Lichtblitz bei Klick */
+        box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.8);
     }
     100% {
         box-shadow: none;
     }
 }
 
-@keyframes star-twinkle {
+@keyframes star-twinkle { /* Creates a twinkling star effect */
     0% { opacity: 0.5; }
     50% { opacity: 1; }
-    100% { opacity: 0.5; } /* Lässt die Sterne blinken */
+    100% { opacity: 0.5; } 
 }
 
 .star {
-    animation: flyOut 20s linear forwards, star-twinkle 4s infinite ease-in-out; /* Sterne fliegen und funkeln */
+    animation: flyOut 20s linear forwards, star-twinkle 4s infinite ease-in-out; /* Stars fly out and twinkle */
 }
