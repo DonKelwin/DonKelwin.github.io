@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (clickedSequence.length === 12) {
                 // correct
                 if (JSON.stringify(clickedSequence) === JSON.stringify(correctSequence)) {
-                    message.innerHTML = 'Erfolg! <a href="https://example.com" target="_blank" style="color: cyan; text-decoration: underline;">Weiter</a>';
+                    message.innerHTML = 'Erfolg! Hier ist mein Master Passwort: PSWHwarEinCoolesPraktikum';
                 } else {
                     message.innerText = "Fehlgeschlagen!";
                 }
