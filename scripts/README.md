@@ -15,9 +15,8 @@ This project is designed to run a validation process for a prototype as soon as 
 
 - **`lib/`**: 
   - Contains all custom-written classes that control the components such as sensors, light rings, resistance meters, and more.
-  - Also includes external libraries, linked via symbolic links, which are used to control certain hardware components like the DFPlayer or ADC converters.
+  - Also includes external libraries, linked via symbolic links, which are used to control certain hardware components.
     - DFPlayer: [PicoDFPlayer](https://github.com/mannbro/PicoDFPlayer/blob/main/picodfplayer.py) by [mannbro](https://github.com/mannbro) under the [MIT License](https://opensource.org/license/MIT)
-    - NeoPixel: [Adafruit_NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel) by [Adafruit](https://www.adafruit.com/) under the [GNU LPGL-3.0 License](https://www.gnu.org/licenses/lgpl-3.0.html)
     - ADS: [Driver for the ADS1015/ADS1115 Analogue-Digital Converter](https://github.com/robert-hh/ads1x15/blob/master/ads1x15.py) by [Robert Hammelrath](https://github.com/robert-hh) and [Radomir Dopieralski](https://github.com/deshipu) under the [MIT License](https://opensource.org/license/MIT)
 
 ## Classes Overview
