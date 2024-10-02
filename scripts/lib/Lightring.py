@@ -6,7 +6,6 @@ import sys
 
 class Lightring():
     
-
     # Initialize the Lightring object.
     #
     # Parameters:
@@ -24,7 +23,8 @@ class Lightring():
             "blue": (0, 0, 255),    	# Blau
             "cyan": (0, 255, 255),  	# Cyan
             "magenta": (255, 0, 255),   # Magenta
-            "yellow": (255, 232, 31)	# Star Wars Yellow
+            "yellow": (255,213,0),	# Star Wars Yellow
+            "orange": (255,165,0)
             }
 
         self.base_color = (255, 255, 255)  # Cyan Helle Farbe
@@ -66,27 +66,28 @@ class Lightring():
     # Parameters:
     # - led_number (int): The index of the LED to set.
     # - color (tuple): The color to set the LED to (R, G, B).
+    #Einzelne LED
     def set_led(self, led_number, color):
         self.np[led_number] = color
         self.np.write()
-
+    
+    
     
     # Set all LEDs to a given color.
     #
     # Parameters:
     # - color (tuple): The color to fill all LEDs with (R, G, B).
+    # Alle LED'S
     def fill(self, color):
         for i in range(self.NUM_LEDS):
             self.np[i] = color
         self.np.write()
     
-    
-    # Turn off all LEDs.
+    # Alle LEDs aus
     def clear_all(self,):
         for i in range(self.NUM_LEDS):
             self.np[i] = (0, 0, 0)
         self.np.write()
-
 
     # Adjust the brightness of a color by a given factor.
     #
@@ -102,7 +103,7 @@ class Lightring():
         val3 = color[2]
         return (int(val1 * factor), int(val2 * factor), int(val3 * factor))
     
-    
+
     # Create a spinning light pattern for a given duration.
     #
     # Parameters:
@@ -134,8 +135,147 @@ class Lightring():
 
         self.clear_all()
 
+    #show on the lightring when a figure is inserted. Update accordingly when new figure is placed
+    def show_placed_figure(self, array):
+        print("Figures ready: (top, left, right)", array)
+        if array == [False, False, False]:
+            # Links
+            self.set_led(1, self.colors["yellow"])
+            self.set_led(2, self.colors["yellow"])
+            self.set_led(3, self.colors["yellow"])
 
-    # Blink the LEDs on and off in the base color.
+            # Oben
+            self.set_led(5, self.colors["yellow"])
+            self.set_led(6, self.colors["yellow"])
+            self.set_led(7, self.colors["yellow"])
+
+            # Rechts
+            self.set_led(9, self.colors["yellow"])
+            self.set_led(10, self.colors["yellow"])
+            self.set_led(11, self.colors["yellow"])
+            print("Nichts erkannt")
+
+        elif array == [False, False, True]:
+            # Links
+            self.set_led(1, self.colors["yellow"])
+            self.set_led(2, self.colors["yellow"])
+            self.set_led(3, self.colors["yellow"])
+
+            # Oben
+            self.set_led(5, self.colors["yellow"])
+            self.set_led(6, self.colors["yellow"])
+            self.set_led(7, self.colors["yellow"])
+
+            # Rechts
+            self.set_led(9, self.colors["blue"])
+            self.set_led(10, self.colors["blue"])
+            self.set_led(11, self.colors["blue"])
+            print("Rechts erkannt")
+
+        elif array == [False, True, False]:
+            # Links
+            self.set_led(1, self.colors["blue"])
+            self.set_led(2, self.colors["blue"])
+            self.set_led(3, self.colors["blue"])
+
+            # Oben
+            self.set_led(5, self.colors["yellow"])
+            self.set_led(6, self.colors["yellow"])
+            self.set_led(7, self.colors["yellow"])
+
+            # Rechts
+            self.set_led(9, self.colors["yellow"])
+            self.set_led(10, self.colors["yellow"])
+            self.set_led(11, self.colors["yellow"])
+            print("Links erkannt")
+
+        elif array == [False, True, True]:
+            # Links
+            self.set_led(1, self.colors["blue"])
+            self.set_led(2, self.colors["blue"])
+            self.set_led(3, self.colors["blue"])
+
+            # Oben
+            self.set_led(5, self.colors["yellow"])
+            self.set_led(6, self.colors["yellow"])
+            self.set_led(7, self.colors["yellow"])
+
+            # Rechts
+            self.set_led(9, self.colors["blue"])
+            self.set_led(10, self.colors["blue"])
+            self.set_led(11, self.colors["blue"])
+            print("Links & Rechts erkannt")
+
+        elif array == [True, False, False]:
+            # Links
+            self.set_led(1, self.colors["yellow"])
+            self.set_led(2, self.colors["yellow"])
+            self.set_led(3, self.colors["yellow"])
+
+            # Oben
+            self.set_led(5, self.colors["blue"])
+            self.set_led(6, self.colors["blue"])
+            self.set_led(7, self.colors["blue"])
+
+            # Rechts
+            self.set_led(9, self.colors["yellow"])
+            self.set_led(10, self.colors["yellow"])
+            self.set_led(11, self.colors["yellow"])
+            print("Oben erkannt")
+
+        elif array == [True, False, True]:
+            # Links
+            self.set_led(1, self.colors["yellow"])
+            self.set_led(2, self.colors["yellow"])
+            self.set_led(3, self.colors["yellow"])
+
+            # Oben
+            self.set_led(5, self.colors["blue"])
+            self.set_led(6, self.colors["blue"])
+            self.set_led(7, self.colors["blue"])
+
+            # Rechts
+            self.set_led(9, self.colors["blue"])
+            self.set_led(10, self.colors["blue"])
+            self.set_led(11, self.colors["blue"])
+            print("Oben & Rechts erkannt")
+
+        elif array == [True, True, False]:
+            # Links
+            self.set_led(1, self.colors["blue"])
+            self.set_led(2, self.colors["blue"])
+            self.set_led(3, self.colors["blue"])
+
+            # Oben
+            self.set_led(5, self.colors["blue"])
+            self.set_led(6, self.colors["blue"])
+            self.set_led(7, self.colors["blue"])
+
+            # Rechts
+            self.set_led(9, self.colors["yellow"])
+            self.set_led(10, self.colors["yellow"])
+            self.set_led(11, self.colors["yellow"])
+            print("Oben & Links erkannt")
+
+        elif array == [True, True, True]:
+            # Links
+            self.set_led(1, self.colors["blue"])
+            self.set_led(2, self.colors["blue"])
+            self.set_led(3, self.colors["blue"])
+
+            # Oben
+            self.set_led(5, self.colors["blue"])
+            self.set_led(6, self.colors["blue"])
+            self.set_led(7, self.colors["blue"])
+
+            # Rechts
+            self.set_led(9, self.colors["blue"])
+            self.set_led(10, self.colors["blue"])
+            self.set_led(11, self.colors["blue"])
+            print("Alle erkannt")
+
+
+
     def light_show(self):
         # Beispiel: LEDs in grün leuchten lassen
         self.fill((255, 0, 0))  # RGB für rot
@@ -150,13 +290,11 @@ class Lightring():
         self.spinning_pattern(4)
     
     
-    # Blink the LEDs on and off in the base color.
     def blink_182(self):
         self.fill(self.base_color)
         time.sleep(1)
         self.clear_all()
         
-    
     # Blink the LEDs red for a given time.
     #
     # Parameters:
@@ -167,6 +305,7 @@ class Lightring():
         self.clear_all()
         
     
+    
     # Blink the LEDs green for a given time.
     #
     # Parameters:
@@ -176,7 +315,8 @@ class Lightring():
         time.sleep(t)
         self.clear_all()
 
-    
+
+
     # Blink the LEDs according to a solution pattern.
     #
     # Parameters:
@@ -190,7 +330,6 @@ class Lightring():
             self.set_led(elem, self.clear)
             time.sleep(t_pause)
             
-    
     # Initialize star-like LEDs with random brightness.
     def init_stars(self):
         for led in range(0, self.NUM_LEDS, 1):
@@ -200,7 +339,6 @@ class Lightring():
             self.set_led(led, self.dim_color(self.base_color, brightness))
             self.brightness_led_dict[led] = brightness, cycle_flag
             
-    
     # Iterate through the star brightness pattern.
     def iterate_star_brightness(self):
         for key, value in self.brightness_led_dict.items():
@@ -222,8 +360,9 @@ class Lightring():
             self.set_led(key, self.dim_color(self.base_color, next_brightness))
             self.brightness_led_dict[key] = next_brightness, cycle_flag
             
-    
-    # Display a star pattern with changing brightness.  
+        
+        
+    # Display a star pattern with changing brightness.    
     def star_pattern(self):
         try:
             self.init_stars()
@@ -236,3 +375,4 @@ class Lightring():
         finally:
             self.clear_all()
             sys.exit()
+
