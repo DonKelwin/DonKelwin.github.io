@@ -24,6 +24,9 @@ led_stars = Lightring(12, 13)
 resistance_meter_1 = ResistanceMeter(id_in=1, pin_1=0, pin_2=1, ads=False)
 resistance_meter_2 = ResistanceMeter(id_in=2, pin_1=0, pin_2=1, i2c_pin=0, ads=True)
 resistance_meters = [resistance_meter_1, resistance_meter_2]
+volt_links, volt_rechts = resistance_meter_2.read_voltage()
+init_resistance_values = [resistance_meter_1.read_voltage(), volt_links, volt_rechts]
+init_delta_resistance = 0.1
 
 
 def farb_messung():
@@ -63,7 +66,7 @@ def get_resistance():
             idx, result = meter.validate_voltage_pico()
             idx -= 1
             resistance_messung_results[idx] = result
-    print("Widerstand correct:[X, X, X]:", resistance_messung_results)
+    print("Widerstand correct:[Oben, Links, Rechts]:", resistance_messung_results)
     return resistance_messung_results
 
 
@@ -73,6 +76,8 @@ def combine_dicts(dict_1, dict_2):
 
 def validierung(farb_mess_resultate, resistance_mess_resultate):
     results = combine_dicts(farb_mess_resultate, resistance_mess_resultate)
+    print(results)
+    print(results.items())
     if len(results) != 3:
         print(False, "Not all sensors are working")
         return False
@@ -81,9 +86,8 @@ def validierung(farb_mess_resultate, resistance_mess_resultate):
             if False in v:
                 print(False, k, v, "This sensor is faulty")
                 return False
-            else:
-                print(True, "all right")
-                return True
+        return True
+                
 
 def play_song(dfplayer, file, song):
     #Check if player is busy.
@@ -99,20 +103,35 @@ def play_song(dfplayer, file, song):
 def figures_ready(list_of_sensors):
     print("Searching for figures...")
     list_of_values = []
+    list_of_correct = []
     for sensor in list_of_sensors:
         if sensor.ads:
             volt_b_1, volt_b_2 = sensor.read_voltage()
-            volt_1 = sensor.bridge_with_figure(volt_b_1)
-            volt_2 = sensor.bridge_with_figure(volt_b_2)
-            list_of_values.append(volt_1)
-            list_of_values.append(volt_2)
+            list_of_values.append(volt_b_1)
+            list_of_values.append(volt_b_2)
         else:
             volt_b = sensor.read_voltage()
-            volt = sensor.bridge_with_figure(volt_b)
-            list_of_values.append(volt)
+            list_of_values.append(volt_b)
         print(list_of_values)
-            
-    if False in list_of_values:
+    p = 1
+    #Resistance_Meter.bridge_with_figure(list_of_values, init_resistance_values)
+    for i,j in zip(list_of_values , init_resistance_values):
+        print("Gemessen:", i , " Initial:",j)
+        if p != 2:
+            if abs(i-j) > init_delta_resistance:
+                list_of_correct.append(True)
+            else:
+                list_of_correct.append(False)
+        else:
+            print ("X-Wing/links Messung")
+            if abs(i-j) > 0.017:
+                list_of_correct.append(True)
+            else:
+                list_of_correct.append(False)
+        p+=1
+    
+    lightring.show_placed_figure(list_of_correct)        
+    if False in list_of_correct:
         print(f"list of measured resistance: {list_of_values}")
         print("figures not ready, will try again in second")
         return False
@@ -131,6 +150,8 @@ def main():
         play_song(player, 1, 3)
         lightring.fill(lightring.colors["yellow"])
         time.sleep(30)
+        volt_links, volt_rechts = resistance_meter_2.read_voltage()
+        init_resistance_values = [resistance_meter_1.read_voltage(), volt_links, volt_rechts]
         while not figures_ready(resistance_meters):
             time.sleep(3)
         trial = 0
@@ -175,3 +196,4 @@ def main():
 
 _thread.start_new_thread(main, ())
 led_stars.star_pattern()
+
