@@ -24,17 +24,11 @@ led_stars = Lightring(12, 13)
 resistance_meter_1 = ResistanceMeter(id_in=1, pin_1=0, pin_2=1, ads=False)
 resistance_meter_2 = ResistanceMeter(id_in=2, pin_1=0, pin_2=1, i2c_pin=0, ads=True)
 resistance_meters = [resistance_meter_1, resistance_meter_2]
+volt_links, volt_rechts = resistance_meter_2.read_voltage()
+init_resistance_values = [resistance_meter_1.read_voltage(), volt_links, volt_rechts]
+init_delta_resistance = 0.1
 
 
-"""
-    Performs color measurement on multiple sensors and compares the results against predefined initial color values.
-
-    The function collects color data (RGB + clear) from a set of sensors and compares the measured values to predefined
-    thresholds. The comparison is based on delta values for each color channel.
-
-    Returns:
-        dict: A dictionary with sensor index as the key and a boolean value indicating whether the measurement is valid.
-"""
 def farb_messung():
     farb_messung_results = {}
     sensor_data = Color_Sensor.read_all_sensors(7)
@@ -59,15 +53,6 @@ def farb_messung():
     return farb_messung_results
 
 
-"""
-    Reads and validates resistance measurements from multiple resistance meters.
-
-    This method reads voltage measurements from both ADS1115 and Pico's internal ADC and checks whether they fall
-    within valid ranges. Results are stored in a dictionary based on the meter's index.
-
-    Returns:
-        dict: A dictionary where keys represent meter indices and values are booleans indicating measurement validity.
-"""
 def get_resistance():
     resistance_messung_results = {}
     for meter in resistance_meters:
@@ -81,43 +66,18 @@ def get_resistance():
             idx, result = meter.validate_voltage_pico()
             idx -= 1
             resistance_messung_results[idx] = result
-    print("Widerstand correct:[X, X, X]:", resistance_messung_results)
+    print("Widerstand correct:[Oben, Links, Rechts]:", resistance_messung_results)
     return resistance_messung_results
 
 
-"""
-    Combines two dictionaries by matching keys, and groups their values in a list.
-
-    If a key exists in both dictionaries, their respective values are combined in a list. If a key exists in only one 
-    dictionary, it will not be included in the final dictionary.
-
-    Args:
-        dict_1 (dict): First dictionary.
-        dict_2 (dict): Second dictionary.
-
-    Returns:
-        dict: A dictionary where each key maps to a list of values from the two input dictionaries.
-"""
 def combine_dicts(dict_1, dict_2):
     finaldict = dict(((key, [dict_1[key], dict_2[key]]) if key in dict_1.keys() and dict_2.keys() else None for key in dict_1))
     return finaldict
 
-
-"""
-    Validates the results of both color and resistance measurements.
-
-    Combines the results from the color measurement and resistance measurement, and checks if all sensors
-    have valid results. If any sensor fails, it reports the failure and exits.
-
-    Args:
-        farb_mess_resultate (dict): The results of the color measurement.
-        resistance_mess_resultate (dict): The results of the resistance measurement.
-
-    Returns:
-        bool: True if all sensors pass validation, otherwise False.
-"""
 def validierung(farb_mess_resultate, resistance_mess_resultate):
     results = combine_dicts(farb_mess_resultate, resistance_mess_resultate)
+    print(results)
+    print(results.items())
     if len(results) != 3:
         print(False, "Not all sensors are working")
         return False
@@ -126,22 +86,9 @@ def validierung(farb_mess_resultate, resistance_mess_resultate):
             if False in v:
                 print(False, k, v, "This sensor is faulty")
                 return False
-            else:
-                print(True, "all right")
-                return True
+        return True
+                
 
-
-"""
-    Plays a song using the DFPlayer module, checking whether it is busy before starting playback.
-
-    If the DFPlayer is currently busy playing another track, the function waits and tries again.
-
-    Args:
-        dfplayer (DFPlayer): The DFPlayer object controlling the music playback.
-        file (int): The folder/file number to be played.
-        song (int): The specific song number to be played.
-
-"""
 def play_song(dfplayer, file, song):
     #Check if player is busy.
     busy = dfplayer.queryBusy()
@@ -152,36 +99,39 @@ def play_song(dfplayer, file, song):
         time.sleep(1)
         self.play_song(dfplayer, file, song)
         
-
-"""
-    Checks if all figures (sensors) are ready by analyzing their voltage measurements.
-
-    The function loops over the provided sensors, reads the voltage from each, and evaluates whether the measurements
-    indicate that the figures are ready.
-
-    Args:
-        list_of_sensors (list): List of sensor objects to be evaluated.
-
-    Returns:
-        bool: True if all figures are ready (i.e., within the valid voltage range), otherwise False.
-"""
+    
 def figures_ready(list_of_sensors):
     print("Searching for figures...")
     list_of_values = []
+    list_of_correct = []
     for sensor in list_of_sensors:
         if sensor.ads:
             volt_b_1, volt_b_2 = sensor.read_voltage()
-            volt_1 = sensor.bridge_with_figure(volt_b_1)
-            volt_2 = sensor.bridge_with_figure(volt_b_2)
-            list_of_values.append(volt_1)
-            list_of_values.append(volt_2)
+            list_of_values.append(volt_b_1)
+            list_of_values.append(volt_b_2)
         else:
             volt_b = sensor.read_voltage()
-            volt = sensor.bridge_with_figure(volt_b)
-            list_of_values.append(volt)
+            list_of_values.append(volt_b)
         print(list_of_values)
-            
-    if False in list_of_values:
+    p = 1
+    #Resistance_Meter.bridge_with_figure(list_of_values, init_resistance_values)
+    for i,j in zip(list_of_values , init_resistance_values):
+        print("Gemessen:", i , " Initial:",j)
+        if p != 2:
+            if abs(i-j) > init_delta_resistance:
+                list_of_correct.append(True)
+            else:
+                list_of_correct.append(False)
+        else:
+            print ("X-Wing/links Messung")
+            if abs(i-j) > 0.017:
+                list_of_correct.append(True)
+            else:
+                list_of_correct.append(False)
+        p+=1
+    
+    lightring.show_placed_figure(list_of_correct)        
+    if False in list_of_correct:
         print(f"list of measured resistance: {list_of_values}")
         print("figures not ready, will try again in second")
         return False
@@ -190,13 +140,7 @@ def figures_ready(list_of_sensors):
         return True
 
 
-"""
-    Main function to handle the box logic, including initializing LEDs, playing songs, checking figure readiness,
-    validating color and resistance measurements, and giving feedback through lights and sound.
 
-    The box will perform several trials to check for the readiness of figures, conduct measurements, and validate
-    results. If validation fails, it plays a failure sound; otherwise, it plays success music.
-"""
 def main():
     try:
         led_pin_sensor1.value(0)
@@ -206,6 +150,8 @@ def main():
         play_song(player, 1, 3)
         lightring.fill(lightring.colors["yellow"])
         time.sleep(30)
+        volt_links, volt_rechts = resistance_meter_2.read_voltage()
+        init_resistance_values = [resistance_meter_1.read_voltage(), volt_links, volt_rechts]
         while not figures_ready(resistance_meters):
             time.sleep(3)
         trial = 0
@@ -250,3 +196,4 @@ def main():
 
 _thread.start_new_thread(main, ())
 led_stars.star_pattern()
+
